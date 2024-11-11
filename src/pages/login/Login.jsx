@@ -11,7 +11,11 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Input from "@mui/material/Input";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -40,13 +44,16 @@ const Login = () => {
                 type="email"
                 className={s.loginInput}
                 {...register("email", {
-                  required: "Email is Required",
+                  required: "Введите адрес электронной почты",
                   minLength: {
                     message: "Any error",
                   },
                 })}
                 disableUnderline
               />
+              <div className={s.emailError}>
+                <span>{errors.email?.message}</span>
+              </div>
             </div>
           </div>
           <div className={s.passwordBox}>
@@ -73,11 +80,7 @@ const Login = () => {
                   </InputAdornment>
                 }
                 {...register("password", {
-                  required: "Password is Required",
-                  minLength: {
-                    value: 6,
-                    message: "Min length 6",
-                  },
+                  required: "Введите пароль",
                 })}
                 disableUnderline
                 sx={{
@@ -86,6 +89,9 @@ const Login = () => {
                   border: "1px solid #bcbcbc",
                 }}
               />
+              <div className={s.passwordError}>
+                <span>{errors.password?.message}</span>
+              </div>
             </div>
           </div>
           <div>

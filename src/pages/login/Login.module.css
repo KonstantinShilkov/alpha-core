@@ -22,7 +22,7 @@
   height: 350px;
   border: solid 1px;
   border-radius: 5px;
-  color: #bcbcbc;
+  border-color: #bcbcbc;
   box-sizing: border-box;
   box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
@@ -85,6 +85,22 @@
   color: #292222;
   padding: 10px;
 }
+.emailError {
+  display: flex;
+  height: 16px;
+}
+
+.emailError span {
+  /* //styleName: Font 2; */
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #dd1e26;
+}
 
 .passwordBox {
   display: flex;
@@ -132,6 +148,23 @@
   text-decoration-skip-ink: none;
   color: #292222;
   padding: 10px;
+}
+
+.passwordError {
+  display: flex;
+  height: 16px;
+}
+
+.passwordError span {
+  /* //styleName: Font 2; */
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #dd1e26;
 }
 
 .button {
