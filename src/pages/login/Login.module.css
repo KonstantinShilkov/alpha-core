@@ -1,0 +1,210 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 55px;
+  margin-top: 122px;
+}
+
+.logo {
+  width: 122px;
+  height: 18px;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 350px;
+  border: solid 1px;
+  border-radius: 5px;
+  border-color: #bcbcbc;
+  box-sizing: border-box;
+  box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.headerText span {
+  /* styleName: Font 4; */
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.75px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #292222;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginTextBox {
+  display: flex;
+  width: 400px;
+  height: 30px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.loginText {
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #292222;
+}
+
+.loginTextStar {
+  color: red;
+}
+.loginInput {
+  display: flex;
+  width: 400px;
+  height: 40px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #bcbcbc;
+  /* //styleName: Font 1; */
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #292222;
+  padding: 10px;
+}
+.emailError {
+  display: flex;
+  height: 16px;
+}
+
+.emailError span {
+  /* //styleName: Font 2; */
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #dd1e26;
+}
+
+.passwordBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.passwordTextBox {
+  display: flex;
+  width: 400px;
+  height: 30px;
+  align-items: center;
+}
+
+.passwordText {
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #292222;
+}
+
+.passwordTextStar {
+  color: red;
+}
+
+.passwordInput {
+  display: flex;
+  width: 400px;
+  height: 40px;
+  box-sizing: border-box;
+  /* border-radius: 3px; */
+  /* border: 1px solid #bcbcbc; */
+  /* //styleName: Font 1; */
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #292222;
+  padding: 10px;
+}
+
+.passwordError {
+  display: flex;
+  height: 16px;
+}
+
+.passwordError span {
+  /* //styleName: Font 2; */
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #dd1e26;
+}
+
+.button {
+  width: 400px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #bcbcbc;
+  background-color: white;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  color: #292222;
+  margin-top: 24px;
+}
+
+.button:hover {
+  background-color: #f6f6f6;
+}
+
+.button:active {
+  background-color: #f0f0f0;
+}
+.questionBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0px 5px 0px;
+  border: none;
+}
+
+.questionLink {
+  display: flex;
+  align-items: center;
+  width: 150px;
+  height: 70px;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  color: #292222;
+  text-decoration: none;
+}
