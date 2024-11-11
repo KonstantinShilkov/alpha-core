@@ -49,6 +49,7 @@
   display: flex;
   width: 400px;
   height: 30px;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -96,6 +97,7 @@
   display: flex;
   width: 400px;
   height: 30px;
+  align-items: center;
 }
 
 .passwordText {
@@ -118,8 +120,8 @@
   width: 400px;
   height: 40px;
   box-sizing: border-box;
-  border-radius: 3px;
-  border: 1px solid #bcbcbc;
+  /* border-radius: 3px; */
+  /* border: 1px solid #bcbcbc; */
   /* //styleName: Font 1; */
   font-family: "Roboto";
   font-size: 16px;
@@ -146,6 +148,13 @@
   margin-top: 40px;
 }
 
+.button:hover {
+  background-color: #f6f6f6;
+}
+
+.button:active {
+  background-color: #f0f0f0;
+}
 .questionBox {
   display: flex;
   justify-content: center;

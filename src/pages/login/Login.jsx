@@ -1,13 +1,14 @@
 import s from "./Login.module.css";
 import logo from "../../assets/logo.jpg";
-// import Input from "@mui/joy/Input";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-// import InputAdornment from "@mui/material/InputAdornment";
-// import IconButton from "@mui/material/IconButton";
-// import Visibility from "@mui/icons-material/Visibility";
-// import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Input from "@mui/material/Input";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -35,15 +36,16 @@ const Login = () => {
               <span className={s.loginTextStar}>*</span>
             </div>
             <div>
-              <input
+              <Input
+                type="email"
+                className={s.loginInput}
                 {...register("email", {
                   required: "Email is Required",
                   minLength: {
                     message: "Any error",
                   },
                 })}
-                type="email"
-                className={s.loginInput}
+                disableUnderline
               />
             </div>
           </div>
@@ -53,7 +55,23 @@ const Login = () => {
               <span className={s.passwordTextStar}>*</span>
             </div>
             <div>
-              <input
+              <Input
+                className={s.passwordInput}
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? "hide the password"
+                          : "display the password"
+                      }
+                      onClick={handleClickShowPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
                 {...register("password", {
                   required: "Password is Required",
                   minLength: {
@@ -61,8 +79,12 @@ const Login = () => {
                     message: "Min length 6",
                   },
                 })}
-                type={showPassword ? "text" : "password"}
-                className={s.passwordInput}
+                disableUnderline
+                sx={{
+                  backgroundColor: "#ffffff",
+                  borderRadius: "3px",
+                  border: "1px solid #bcbcbc",
+                }}
               />
             </div>
           </div>

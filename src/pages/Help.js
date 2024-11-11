@@ -1,5 +1,5 @@
 const Help = () => {
-  return <div>Help Page in case of Login Failed</div>;
+  return <div>Help page in case wrong password or another issue</div>;
 };
 
 export default Help;
