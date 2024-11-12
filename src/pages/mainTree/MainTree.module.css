@@ -1,0 +1,33 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+}
+.headerContainer {
+  display: flex;
+  border: 1px;
+  border: 1px solid #403939;
+}
+
+.treeButtons {
+  display: flex;
+  border: 1px;
+  border: 1px solid #403939;
+}
+
+.mainBodyBox {
+  display: flex;
+  flex-direction: row;
+  border: 1px;
+  border: 1px solid #403939;
+}
+
+.tree {
+  display: flex;
+  border: 1px;
+  border: 1px solid #403939;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+}

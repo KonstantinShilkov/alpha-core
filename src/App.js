@@ -1,13 +1,16 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Main from "./pages/Main";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Main />
-      </div>
+      <SnackbarProvider maxSnack={3}>
+        <div className="App">
+          <Main />
+        </div>
+      </SnackbarProvider>
     </BrowserRouter>
   );
 }
