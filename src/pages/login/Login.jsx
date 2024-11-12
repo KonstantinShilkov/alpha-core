@@ -1,9 +1,10 @@
 import s from "./Login.module.css";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/images/logo.jpg";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
+import { useAuth } from "../hooks/useAuth";
 
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
@@ -14,19 +15,23 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const { authenticate, loading, error } = useAuth();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const testSubmit = (data) => {
+  const onSubmit = (data) => {
+    authenticate(data.email, data.password);
     console.log(data);
+    reset();
   };
 
   return (
     <div className={s.mainContainer}>
-      <form onSubmit={handleSubmit(testSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={s.logoContainer}>
           <img className={s.logo} src={logo} alt="Logo" />
         </div>
