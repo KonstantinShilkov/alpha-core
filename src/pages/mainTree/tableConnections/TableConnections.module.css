@@ -1,0 +1,58 @@
+.table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.header {
+  text-align: left;
+  width: 430px;
+  padding: 5px;
+
+  /* styleName: Font 4 */
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+  /* Color 3 */
+  color: #292222;
+}
+
+.header:first-child {
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.header:last-child {
+  width: 400px;
+}
+
+.cell:first-child {
+  text-align: center;
+}
+.cell {
+  padding: 5px;
+
+  /* styleName: Font 1; */
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+  /* Color 3 */
+  color: #292222;
+}
+
+.separator {
+  width: 430px;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 0;
+}

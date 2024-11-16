@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LOGIN_MUTATION } from "../../apollo/auth";
+import { LOGIN_MUTATION } from "../../apollo/queries";
 import { useMutation } from "@apollo/client";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
@@ -16,16 +16,19 @@ export const useAuth = () => {
       const { data: responseData } = await login({
         variables: { email, password },
       });
+      const token = responseData?.login?.token;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
       console.log(responseData);
       setData(responseData);
       setIsAuth(true);
       navigate("/tree");
-
-      console.log(isAuth);
     } catch (err) {
       const errorMessage = err.message;
       if (errorMessage === "Invalid credentials") {
-        enqueueSnackbar("wrong email or password");
+        enqueueSnackbar("invalid email or password");
       } else {
         enqueueSnackbar(errorMessage);
       }
