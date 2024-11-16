@@ -36,7 +36,7 @@ const Login = () => {
           <img className={s.logo} src={logo} alt="Logo" />
         </div>
         <div className={s.loginContainer}>
-          <div className={s.headerText}>
+          <div className={s.headerTextBox}>
             <span>Войдите в свой аккаунт </span>
           </div>
           <div className={s.loginBox}>
@@ -73,6 +73,7 @@ const Login = () => {
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
+                      sx={{ width: 24, height: 24 }}
                       aria-label={
                         showPassword
                           ? "hide the password"
@@ -99,7 +100,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className={s.buttonBox}>
             <button className={s.button} type="submit">
               Продолжить
             </button>
