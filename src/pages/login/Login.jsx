@@ -10,6 +10,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Input from "@mui/material/Input";
+import Preloader from "../../common/Preloader";
 
 const Login = () => {
   const {
@@ -25,9 +26,12 @@ const Login = () => {
 
   const onSubmit = (data) => {
     authenticate(data.email, data.password);
-    console.log(data);
     reset();
   };
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   return (
     <div className={s.mainContainer}>

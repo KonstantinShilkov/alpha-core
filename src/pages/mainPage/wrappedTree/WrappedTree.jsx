@@ -1,9 +1,14 @@
 import { React } from "react";
 import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
 import { TreeItem } from "@mui/x-tree-view/TreeItem";
-import s from "./MainTree.module.css";
+import s from "./WrappedTree.module.css";
 
-const RecursiveTreeItem = ({ node, expandedItems, setExpandedItems }) => {
+const RecursiveTreeItem = ({
+  node,
+  expandedItems,
+  setExpandedItems,
+  setSelectedNodeId,
+}) => {
   const handleDoubleClick = (event) => {
     event.stopPropagation();
 
@@ -14,17 +19,23 @@ const RecursiveTreeItem = ({ node, expandedItems, setExpandedItems }) => {
     );
   };
 
+  const handleClick = () => {
+    setSelectedNodeId(node.id);
+  };
+
   return (
     <TreeItem
       itemId={node.id}
       label={node.name}
+      onClick={handleClick}
       className={s.treeItem}
       onDoubleClick={handleDoubleClick}
       sx={{
         "& .MuiCheckbox-root": {
-          width: "18px",
-          height: "18px",
-          color: "#292222",
+          "& .MuiSvgIcon-root": {
+            width: "24px",
+            height: "24px",
+          },
         },
       }}
     >
@@ -35,13 +46,20 @@ const RecursiveTreeItem = ({ node, expandedItems, setExpandedItems }) => {
             node={child}
             expandedItems={expandedItems}
             setExpandedItems={setExpandedItems}
+            setSelectedNodeId={setSelectedNodeId}
           />
         ))}
     </TreeItem>
   );
 };
 
-const Tree = ({ data, expandedItems, setExpandedItems, loading }) => {
+const WrappedTree = ({
+  data,
+  expandedItems,
+  setExpandedItems,
+  setSelectedNodeId,
+  loading,
+}) => {
   if (!data || data.length === 0) {
     return <div>Нет данных для отображения</div>;
   }
@@ -65,10 +83,11 @@ const Tree = ({ data, expandedItems, setExpandedItems, loading }) => {
           node={node}
           expandedItems={expandedItems}
           setExpandedItems={setExpandedItems}
+          setSelectedNodeId={setSelectedNodeId}
         />
       ))}
     </SimpleTreeView>
   );
 };
 
-export default Tree;
+export default WrappedTree;

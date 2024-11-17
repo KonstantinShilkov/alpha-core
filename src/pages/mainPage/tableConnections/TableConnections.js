@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./TableConnections.module.css";
-import CustomCheckBox from "../../../common/CustomCheckBox";
+import CustomCheckBox from "../../../common/CustomElements/CheckBox/CustomCheckBox";
 
 const TableConnections = () => {
   const data = [

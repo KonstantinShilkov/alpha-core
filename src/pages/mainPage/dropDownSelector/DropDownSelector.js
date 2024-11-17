@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import s from "./DropDownSelector.module.css";
+import React, { useRef, useState, useEffect } from "react";
 
 const DropDownSelector = ({ label }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,6 +7,21 @@ const DropDownSelector = ({ label }) => {
     yes: false,
     no: true,
   });
+
+  const dropdownRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const handleToggleDropdown = () => setIsOpen((prev) => !prev);
 
@@ -24,7 +39,7 @@ const DropDownSelector = ({ label }) => {
   const selectedText = checkedValues.yes ? `${label} + 1` : `${label}`;
 
   return (
-    <div className={s.dropdownContainer}>
+    <div className={s.dropdownContainer} ref={dropdownRef}>
       <button
         className={s.toggleButton}
         onClick={handleToggleDropdown}
