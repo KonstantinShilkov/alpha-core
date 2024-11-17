@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import searchIcon from "..//..//assets/images/search icon.jpg";
 import Preloader from "../../common/Preloader";
+import DropDownSelector from "./DropDownSelector/DropDownSelector";
 
 const MainTree = () => {
   const { treeData, loading, error, filteredTreeData, getSelectedClasses } =
@@ -51,22 +52,12 @@ const MainTree = () => {
         <div className={s.classes}>Классы</div>
         <div className={s.filterSearchBox}>
           <div>
-            <select className={s.assigned} defaultValue="">
-              <option value="" disabled>
-                Присвоенные
-              </option>
-              <option value="yes">Да</option>
-              <option value="no">Нет</option>
-            </select>
+            <DropDownSelector label={"Присвоенные"} />
           </div>
           <div>
-            <select className={s.inLibrary} defaultValue="">
-              <option value="" disabled>
-                В Библиотеке
-              </option>
-              <option value="yes">Да</option>
-              <option value="no">Нет</option>
-            </select>
+            <div>
+              <DropDownSelector label={"В Библиотеке"} />
+            </div>
           </div>
           <div className={s.searchContainer}>
             <Autocomplete
