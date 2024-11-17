@@ -7,12 +7,14 @@ const useTreeData = () => {
   const [treeData, setTreeData] = useState([]);
   const [filteredTreeData, setFilteredTreeData] = useState([]);
   const [classesSelected, setClassesSelected] = useState("");
+  const [descriptions, setDescriptions] = useState([]);
 
   useEffect(() => {
     if (data) {
       const tree = data.modelTreeClasses.tree;
       setTreeData(tree);
       setFilteredTreeData(tree);
+      setDescriptions(getDescriptions(tree));
     }
   }, [data]);
 
@@ -39,12 +41,25 @@ const useTreeData = () => {
     setClassesSelected(classNames);
   };
 
+  const getDescriptions = (nodes) => {
+    const descriptions = [];
+    const parseTree = (node) => {
+      descriptions.push({ id: node.id, description: node.description });
+      if (node.children) {
+        node.children.forEach(parseTree);
+      }
+    };
+    nodes.forEach(parseTree);
+    return descriptions;
+  };
+
   return {
     treeData,
     loading,
     error,
     filteredTreeData,
     getSelectedClasses,
+    descriptions,
   };
 };
 

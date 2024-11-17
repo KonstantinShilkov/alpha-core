@@ -1,5 +1,7 @@
 const Help = () => {
-  return <div>Help page in case wrong password or another issue</div>;
+  return (
+    <div>Help page . In case wrong password or another issue appeared</div>
+  );
 };
 
 export default Help;

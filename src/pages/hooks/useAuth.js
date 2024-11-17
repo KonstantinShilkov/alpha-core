@@ -21,10 +21,10 @@ export const useAuth = () => {
         localStorage.setItem("token", token);
       }
 
-      console.log(responseData);
+      // console.log(responseData);
       setData(responseData);
       setIsAuth(true);
-      navigate("/tree");
+      navigate("/homepage");
     } catch (err) {
       const errorMessage = err.message;
       if (errorMessage === "Invalid credentials") {

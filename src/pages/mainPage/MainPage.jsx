@@ -1,20 +1,35 @@
 import useTreeData from "../hooks/useTreeData";
-import s from "./MainTree.module.css";
+import s from "./MainPage.module.css";
 import TableConnections from "./tableConnections/TableConnections";
 import TableProperties from "./tableProperties/TableProperties";
-import Tree from "./Tree";
 import { useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import searchIcon from "..//..//assets/images/search icon.jpg";
 import Preloader from "../../common/Preloader";
-import DropDownSelector from "./DropDownSelector/DropDownSelector";
+import DropDownSelector from "./dropDownSelector/DropDownSelector";
+import WrappedTree from "./wrappedTree/WrappedTree";
 
-const MainTree = () => {
-  const { treeData, loading, error, filteredTreeData, getSelectedClasses } =
-    useTreeData();
+const MainPage = () => {
+  const {
+    treeData,
+    loading,
+    error,
+    filteredTreeData,
+    getSelectedClasses,
+    descriptions,
+  } = useTreeData();
+  const [selectedNodeId, setSelectedNodeId] = useState(null);
+  const [selectedDescription, setSelectedDescription] = useState("");
   const [expandedItems, setExpandedItems] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+
+  useEffect(() => {
+    if (selectedNodeId) {
+      const node = descriptions.find((item) => item.id === selectedNodeId);
+      setSelectedDescription(node?.description || "Нет описания");
+    }
+  }, [selectedNodeId, descriptions]);
 
   const handleExpandAll = () => {
     const allNodeIds = [];
@@ -96,11 +111,12 @@ const MainTree = () => {
       </div>
       <div className={s.mainBodyBox}>
         <div className={s.tree}>
-          <Tree
+          <WrappedTree
             data={filteredTreeData}
             expandedItems={expandedItems}
             setExpandedItems={setExpandedItems}
             loading={loading}
+            setSelectedNodeId={setSelectedNodeId}
           />
         </div>
         <div className={s.detailsContainer}>
@@ -108,7 +124,11 @@ const MainTree = () => {
             <span>Описание</span>
           </div>
           <div className={s.detailsBox}>
-            <textarea className={s.detailsTextArea} disabled />
+            <textarea
+              className={s.detailsTextArea}
+              disabled
+              value={selectedDescription}
+            />
           </div>
           <div className={s.propertiesText}>
             <span>Свойства</span>
@@ -128,4 +148,4 @@ const MainTree = () => {
   );
 };
 
-export default MainTree;
+export default MainPage;

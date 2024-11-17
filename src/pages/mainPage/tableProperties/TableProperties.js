@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./TableProperties.module.css";
-import CustomCheckBox from "../../../common/CustomCheckBox";
+import CustomCheckBox from "../../../common/CustomElements/CheckBox/CustomCheckBox";
 
 const TableProperties = () => {
   const data = [
