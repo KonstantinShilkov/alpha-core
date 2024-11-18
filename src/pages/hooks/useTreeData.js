@@ -19,22 +19,39 @@ const useTreeData = () => {
   }, [data]);
 
   useEffect(() => {
-    const filteredByClasses = (classesSelected) => {
+    const filterTree = (nodes, query) => {
+      if (!query || query.trim() === "") {
+        return nodes;
+      }
+
+      return nodes
+        .map((node) => {
+          const children = node.children
+            ? filterTree(node.children, query)
+            : [];
+
+          if (
+            node.name.toLowerCase().includes(query.toLowerCase()) ||
+            children.length > 0
+          ) {
+            return { ...node, children };
+          }
+
+          return null;
+        })
+        .filter(Boolean);
+    };
+
+    const filteredByClasses = () => {
       if (!treeData || treeData.length === 0) {
         return;
       }
 
-      if (!classesSelected || classesSelected.trim() === "") {
-        setFilteredTreeData(treeData);
-      } else {
-        const filtered = treeData.filter((treeItem) =>
-          treeItem.name.toLowerCase().includes(classesSelected.toLowerCase())
-        );
-        setFilteredTreeData(filtered);
-      }
+      const filtered = filterTree(treeData, classesSelected);
+      setFilteredTreeData(filtered);
     };
 
-    filteredByClasses(classesSelected);
+    filteredByClasses();
   }, [classesSelected, treeData]);
 
   const getSelectedClasses = (classNames) => {

@@ -47,7 +47,18 @@ const MainPage = () => {
     setExpandedItems([]);
   };
 
-  const treeClassesNames = treeData.map((treeItem) => treeItem.name);
+  const getAllNodeNames = (nodes) => {
+    const names = [];
+    const parseTree = (node) => {
+      names.push(node.name);
+      if (node.children) {
+        node.children.forEach(parseTree);
+      }
+    };
+    nodes.forEach(parseTree);
+    return names;
+  };
+  const treeClassesNames = getAllNodeNames(treeData);
 
   useEffect(() => {
     getSelectedClasses(selectedValue);
