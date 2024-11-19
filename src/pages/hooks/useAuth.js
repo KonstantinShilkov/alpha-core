@@ -29,6 +29,9 @@ export const useAuth = () => {
   const isTokenExpired = (token) => {
     const decoded = decodeToken(token);
     const currentTime = Math.floor(Date.now() / 1000);
+    console.log(`exp after: ${decoded.exp}`);
+    console.log(`current time: ${currentTime}`);
+
     return decoded.exp < currentTime;
   };
 

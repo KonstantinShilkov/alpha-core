@@ -24,12 +24,12 @@ const Login = () => {
   const navigate = useNavigate();
   console.log(isAuth);
 
-  useEffect(() => {
-    if (isAuth) {
-      navigate("/homepage");
-      console.log(isAuth);
-    }
-  }, [isAuth, navigate]);
+  // useEffect(() => {
+  //   if (isAuth) {
+  //     navigate("/homepage");
+  //     console.log(isAuth);
+  //   }
+  // }, [isAuth, navigate]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
