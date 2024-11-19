@@ -1,8 +1,8 @@
 import s from "./Login.module.css";
 import logo from "../../assets/images/logo.jpg";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { useAuth } from "../hooks/useAuth";
 
@@ -20,7 +20,16 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const { authenticate, loading, error } = useAuth();
+  const { authenticate, loading, error, isAuth } = useAuth();
+  const navigate = useNavigate();
+  console.log(isAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/homepage");
+      console.log(isAuth);
+    }
+  }, [isAuth, navigate]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
