@@ -1,17 +1,11 @@
+import React, { FC } from "react";
 import Login from "./login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import s from "../pages/Main.module.css";
 import Help from "./Help";
 import MainPage from "./mainPage/MainPage";
-// import { useAuth } from "./hooks/useAuth";
-// import { useEffect } from "react";
 
-function AppRoutes() {
-  // const { isAuth } = useAuth();
-  // useEffect(() => {
-  //   console.log(isAuth);
-  // }, [isAuth]);
-
+const AppRoutes: FC = () => {
   return (
     <div className={s.mainContainer}>
       <Routes>
@@ -19,10 +13,10 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/help" element={<Help />} />
         <Route path="/homepage" element={<MainPage />} />
-        <Route path="/login" element={<Login />} />
         <Route path="*" element={<div>404 NOT FOUND</div>} />
       </Routes>
     </div>
   );
-}
+};
+
 export default AppRoutes;

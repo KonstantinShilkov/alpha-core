@@ -1,17 +1,21 @@
+import React, { useRef, useState, useEffect, FC, ChangeEvent } from "react";
 import s from "./DropDownSelector.module.css";
-import React, { useRef, useState, useEffect } from "react";
 
-const DropDownSelector = ({ label }) => {
+interface DropDownSelectorProps {
+  label: string;
+}
+
+const DropDownSelector: FC<DropDownSelectorProps> = ({ label }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [checkedValues, setCheckedValues] = useState({
     yes: false,
     no: true,
   });
 
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
@@ -25,7 +29,7 @@ const DropDownSelector = ({ label }) => {
 
   const handleToggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleCheckboxChange = (event) => {
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;
 
     setCheckedValues((prev) => ({
@@ -33,7 +37,7 @@ const DropDownSelector = ({ label }) => {
       no: name === "no" ? checked : false,
     }));
 
-    setIsOpen(false);
+    setIsOpen(false);  
   };
 
   const selectedText = checkedValues.yes ? `${label} + 1` : `${label}`;
@@ -75,3 +79,4 @@ const DropDownSelector = ({ label }) => {
 };
 
 export default DropDownSelector;
+

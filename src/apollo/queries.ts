@@ -1,5 +1,19 @@
 import { gql } from "@apollo/client";
 
+export interface User {
+  name: string;
+  surname: string;
+}
+
+export interface Organization {
+  users: User[];
+}
+
+export interface AuthPayload {
+  token: string;
+  organizations: Organization[];
+}
+
 export const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -13,6 +27,28 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+
+export interface ClassType {
+  id: string;
+  name: string;
+  description: string;
+  sort: number;
+  standard: boolean;
+  code: boolean;
+}
+
+export interface ClassNode {
+  id: string;
+  name: string;
+  description: string;
+  children?: ClassNode[];
+  classTypes?: ClassType[];
+}
+
+export interface ModelTreeClass {
+  tree: ClassNode[];
+}
 
 export const GET_TREE = gql`
   query GetTree {
@@ -54,3 +90,15 @@ export const GET_TREE = gql`
     }
   }
 `;
+
+export type LoginMutationResponse = {
+  login: AuthPayload;
+};
+
+export type GetTreeQueryResponse = {
+  modelTreeClasses: {
+    tree: ClassNode[];
+  };
+};
+
+

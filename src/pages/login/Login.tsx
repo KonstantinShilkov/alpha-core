@@ -1,39 +1,37 @@
+import React, { FC, useEffect, useState } from "react";
 import s from "./Login.module.css";
 import logo from "../../assets/images/logo.jpg";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { useAuth } from "../hooks/useAuth";
-
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Input from "@mui/material/Input";
 import Preloader from "../../common/Preloader";
 
-const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+const Login: FC = () => {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<LoginFormData>();
   const [showPassword, setShowPassword] = useState(false);
   const { authenticate, loading, error, isAuth } = useAuth();
   const navigate = useNavigate();
-  console.log(isAuth);
 
-  // useEffect(() => {
-  //   if (isAuth) {
-  //     navigate("/homepage");
-  //     console.log(isAuth);
-  //   }
-  // }, [isAuth, navigate]);
+    useEffect(() => {
+    if (isAuth) {
+      navigate("/homepage");
+      console.log(isAuth);
+    }
+  }, [isAuth, navigate]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
     authenticate(data.email, data.password);
     reset();
   };
@@ -50,7 +48,7 @@ const Login = () => {
         </div>
         <div className={s.loginContainer}>
           <div className={s.headerTextBox}>
-            <span>Войдите в свой аккаунт </span>
+            <span>Войдите в свой аккаунт</span>
           </div>
           <div className={s.loginBox}>
             <div className={s.loginTextBox}>
@@ -63,9 +61,7 @@ const Login = () => {
                 className={s.loginInput}
                 {...register("email", {
                   required: "Введите адрес электронной почты",
-                  minLength: {
-                    message: "Any error",
-                  },
+                  minLength: { value: 6, message: "Минимум 6 символов" },
                 })}
                 disableUnderline
               />
@@ -130,4 +126,6 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
+

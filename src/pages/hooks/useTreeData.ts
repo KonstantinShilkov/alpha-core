@@ -1,34 +1,33 @@
 import { useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
-import { GET_TREE } from "../../apollo/queries";
+import { GET_TREE, GetTreeQueryResponse, ClassNode } from "../../apollo/queries";
 
 const useTreeData = () => {
-  const { data, loading, error } = useQuery(GET_TREE);
-  const [treeData, setTreeData] = useState([]);
-  const [filteredTreeData, setFilteredTreeData] = useState([]);
-  const [classesSelected, setClassesSelected] = useState("");
-  const [descriptions, setDescriptions] = useState([]);
+  const { data, loading, error } = useQuery<GetTreeQueryResponse>(GET_TREE);
+  const [treeData, setTreeData] = useState<ClassNode[]>([]);
+  const [filteredTreeData, setFilteredTreeData] = useState<ClassNode[]>([]);
+  const [classesSelected, setClassesSelected] = useState<string>("");
+  const [descriptions, setDescriptions] = useState<{ id: string; description: string }[]>([]);
 
   useEffect(() => {
-    if (data) {
+    if (data?.modelTreeClasses?.tree) {
       const tree = data.modelTreeClasses.tree;
       setTreeData(tree);
       setFilteredTreeData(tree);
       setDescriptions(getDescriptions(tree));
+      console.log(tree)
     }
   }, [data]);
 
   useEffect(() => {
-    const filterTree = (nodes, query) => {
+    const filterTree = (nodes: ClassNode[], query: string): ClassNode[] => {
       if (!query || query.trim() === "") {
         return nodes;
       }
 
       return nodes
         .map((node) => {
-          const children = node.children
-            ? filterTree(node.children, query)
-            : [];
+          const children = node.children ? filterTree(node.children, query) : [];
 
           if (
             node.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -39,7 +38,7 @@ const useTreeData = () => {
 
           return null;
         })
-        .filter(Boolean);
+        .filter(Boolean) as ClassNode[];
     };
 
     const filteredByClasses = () => {
@@ -54,13 +53,13 @@ const useTreeData = () => {
     filteredByClasses();
   }, [classesSelected, treeData]);
 
-  const getSelectedClasses = (classNames) => {
+  const getSelectedClasses = (classNames: string) => {
     setClassesSelected(classNames);
   };
 
-  const getDescriptions = (nodes) => {
-    const descriptions = [];
-    const parseTree = (node) => {
+  const getDescriptions = (nodes: ClassNode[]): { id: string; description: string }[] => {
+    const descriptions: { id: string; description: string }[] = [];
+    const parseTree = (node: ClassNode) => {
       descriptions.push({ id: node.id, description: node.description });
       if (node.children) {
         node.children.forEach(parseTree);

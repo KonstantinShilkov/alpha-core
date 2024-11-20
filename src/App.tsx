@@ -2,8 +2,9 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { SnackbarProvider } from "notistack";
 import AppRoutes from "./pages/AppRoutes";
+import { FC } from "react";
 
-function App() {
+const App: FC = () => {
   return (
     <BrowserRouter>
       <SnackbarProvider maxSnack={3}>
@@ -13,6 +14,6 @@ function App() {
       </SnackbarProvider>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
