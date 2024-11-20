@@ -1,9 +1,15 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import s from "./TableProperties.module.css";
 import CustomCheckBox from "../../../common/CustomElements/CheckBox/CustomCheckBox";
 
-const TableProperties = () => {
-  const data = [
+interface TableRow {
+  name: string;
+  defaultValue: ReactNode; 
+  unit: string;
+}
+
+const TableProperties: FC = () => {
+  const data: TableRow[] = [
     {
       name: "Давление Номинальное",
       defaultValue: "2,5",
@@ -40,7 +46,7 @@ const TableProperties = () => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan="3">
+            <td colSpan={3}>
               <hr className={s.separator} />
             </td>
           </tr>
@@ -52,7 +58,7 @@ const TableProperties = () => {
             </tr>
           ))}
           <tr>
-            <td colSpan="3">
+            <td colSpan={3}>
               <hr className={s.separator} />
             </td>
           </tr>

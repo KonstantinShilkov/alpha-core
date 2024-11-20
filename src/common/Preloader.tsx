@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { Box } from "@mui/system";
 import { CircularProgress } from "@mui/material";
 
-let Preloader = () => {
+const Preloader: FC = () => {
   return (
     <Box
       sx={{
@@ -13,9 +13,13 @@ let Preloader = () => {
         height: "100vh",
       }}
     >
-      <CircularProgress size={25} />
+      <CircularProgress size={35} />
     </Box>
   );
 };
 
 export default Preloader;
+
+
+
+

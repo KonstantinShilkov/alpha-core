@@ -1,15 +1,31 @@
+import React, { FC, useEffect, useState } from "react";
 import useTreeData from "../hooks/useTreeData";
 import s from "./MainPage.module.css";
 import TableConnections from "./tableConnections/TableConnections";
 import TableProperties from "./tableProperties/TableProperties";
-import { useEffect, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import searchIcon from "..//..//assets/images/search icon.jpg";
 import Preloader from "../../common/Preloader";
 import DropDownSelector from "./dropDownSelector/DropDownSelector";
 import WrappedTree from "./wrappedTree/WrappedTree";
 
-const MainPage = () => {
+interface TreeNode {
+  id: string;
+  name: string;
+  description?: string;
+  children?: TreeNode[];
+}
+
+interface UseTreeDataReturn {
+  treeData: TreeNode[];
+  loading: boolean;
+  error: Error | null | undefined;  
+  filteredTreeData: TreeNode[];
+  getSelectedClasses: (selectedValue: string) => void;
+  descriptions: { id: string; description: string }[];
+}
+
+const MainPage: FC = () => {
   const {
     treeData,
     loading,
@@ -17,12 +33,13 @@ const MainPage = () => {
     filteredTreeData,
     getSelectedClasses,
     descriptions,
-  } = useTreeData();
-  const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [selectedDescription, setSelectedDescription] = useState("");
-  const [expandedItems, setExpandedItems] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
+  }: UseTreeDataReturn = useTreeData();
+
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [selectedDescription, setSelectedDescription] = useState<string>("");
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
   useEffect(() => {
     if (selectedNodeId) {
@@ -32,8 +49,8 @@ const MainPage = () => {
   }, [selectedNodeId, descriptions]);
 
   const handleExpandAll = () => {
-    const allNodeIds = [];
-    const collectIds = (node) => {
+    const allNodeIds: string[] = [];
+    const collectIds = (node: TreeNode) => {
       allNodeIds.push(node.id);
       if (node.children) {
         node.children.forEach(collectIds);
@@ -47,9 +64,9 @@ const MainPage = () => {
     setExpandedItems([]);
   };
 
-  const getAllNodeNames = (nodes) => {
-    const names = [];
-    const parseTree = (node) => {
+  const getAllNodeNames = (nodes: TreeNode[]): string[] => {
+    const names: string[] = [];
+    const parseTree = (node: TreeNode) => {
       names.push(node.name);
       if (node.children) {
         node.children.forEach(parseTree);
@@ -58,6 +75,7 @@ const MainPage = () => {
     nodes.forEach(parseTree);
     return names;
   };
+
   const treeClassesNames = getAllNodeNames(treeData);
 
   useEffect(() => {
@@ -91,7 +109,7 @@ const MainPage = () => {
               options={treeClassesNames}
               value={searchValue}
               onInputChange={(event, newValue) => setSearchValue(newValue)}
-              onChange={(event, newValue) => setSelectedValue(newValue)}
+              onChange={(event, newValue) => setSelectedValue(newValue|| "")}
               renderInput={(params) => (
                 <div ref={params.InputProps.ref} className={s.inputWrapper}>
                   <span className={s.icon}>

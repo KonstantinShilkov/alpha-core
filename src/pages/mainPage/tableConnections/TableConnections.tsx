@@ -1,16 +1,21 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import s from "./TableConnections.module.css";
 import CustomCheckBox from "../../../common/CustomElements/CheckBox/CustomCheckBox";
 
-const TableConnections = () => {
-  const data = [
+interface DataRow {
+  status: ReactNode; 
+  className: string;
+}
+
+const TableConnections: FC = () => {
+  const data: DataRow[] = [
     {
       status: <CustomCheckBox />,
       className: "Механическое оборудование",
     },
     {
       status: <CustomCheckBox />,
-      className: "Механическое оборудование",
+      className: "Титул",
     },
   ];
 
@@ -27,7 +32,7 @@ const TableConnections = () => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan="2">
+            <td colSpan={2}>
               <hr className={s.separator} />
             </td>
           </tr>
@@ -38,7 +43,7 @@ const TableConnections = () => {
             </tr>
           ))}
           <tr>
-            <td colSpan="2">
+            <td colSpan={2}>
               <hr className={s.separator} />
             </td>
           </tr>

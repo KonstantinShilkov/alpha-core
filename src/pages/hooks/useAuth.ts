@@ -3,15 +3,17 @@ import { LOGIN_MUTATION } from "../../apollo/queries";
 import { useMutation } from "@apollo/client";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import type { LoginMutationResponse } from "../../apollo/queries";
+
 
 export const useAuth = () => {
-  const [data, setData] = useState(null);
-  const [isAuth, setIsAuth] = useState(false);
-  const [login, { loading, error }] = useMutation(LOGIN_MUTATION);
+  const [data, setData] = useState<LoginMutationResponse | null>(null); 
+  const [isAuth, setIsAuth] = useState<boolean>(false); 
+  const [login, { loading, error }] = useMutation<LoginMutationResponse>(LOGIN_MUTATION); 
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const decodeToken = (token) => {
+  const decodeToken = (token: string) => {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
     const jsonPayload = decodeURIComponent(
@@ -26,12 +28,9 @@ export const useAuth = () => {
     return JSON.parse(jsonPayload);
   };
 
-  const isTokenExpired = (token) => {
+  const isTokenExpired = (token: string): boolean => {
     const decoded = decodeToken(token);
     const currentTime = Math.floor(Date.now() / 1000);
-    console.log(`exp after: ${decoded.exp}`);
-    console.log(`current time: ${currentTime}`);
-
     return decoded.exp < currentTime;
   };
 
@@ -45,7 +44,7 @@ export const useAuth = () => {
     }
   }, []);
 
-  const authenticate = async (email, password) => {
+  const authenticate = async (email: string, password: string) => {
     try {
       const { data: responseData } = await login({
         variables: { email, password },
@@ -55,19 +54,20 @@ export const useAuth = () => {
         localStorage.setItem("token", token);
       }
 
-      console.log(responseData);
-      setData(responseData);
-      setIsAuth(true);
-      navigate("/homepage");
-    } catch (err) {
+      if (responseData) {
+        setData(responseData); 
+      }     
+       setIsAuth(true); 
+      navigate("/homepage"); 
+    } catch (err: any) {
       const errorMessage = err.message;
       if (errorMessage === "Invalid credentials") {
-        enqueueSnackbar("invalid email or password");
+        enqueueSnackbar("Invalid email or password");
       } else {
         enqueueSnackbar(errorMessage);
       }
 
-      console.error("Ошибка авторизации:", err);
+      console.error("Authorization error:", err);
     }
   };
 

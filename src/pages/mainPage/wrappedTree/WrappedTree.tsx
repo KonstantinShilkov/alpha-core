@@ -1,15 +1,28 @@
-import { React } from "react";
+import React, { ChangeEvent, Dispatch, FC, MouseEvent, SetStateAction } from "react";
 import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
 import { TreeItem } from "@mui/x-tree-view/TreeItem";
 import s from "./WrappedTree.module.css";
 
-const RecursiveTreeItem = ({
+interface TreeNode {
+  id: string;
+  name: string;
+  children?: TreeNode[];
+}
+
+interface RecursiveTreeItemProps {
+  node: TreeNode;
+  expandedItems: string[];
+  setExpandedItems: Dispatch<SetStateAction<string[]>>;
+  setSelectedNodeId: Dispatch<SetStateAction<string | null>>;
+}
+
+const RecursiveTreeItem: FC<RecursiveTreeItemProps> = ({
   node,
   expandedItems,
   setExpandedItems,
   setSelectedNodeId,
 }) => {
-  const handleDoubleClick = (event) => {
+  const handleDoubleClick = (event: MouseEvent) => {
     event.stopPropagation();
 
     setExpandedItems((prevExpandedItems) =>
@@ -53,7 +66,15 @@ const RecursiveTreeItem = ({
   );
 };
 
-const WrappedTree = ({
+interface WrappedTreeProps {
+  data: TreeNode[];
+  expandedItems: string[];
+  setExpandedItems: Dispatch<SetStateAction<string[]>>;
+  setSelectedNodeId: Dispatch<SetStateAction<string | null>>;
+  loading: boolean;
+}
+
+const WrappedTree: FC<WrappedTreeProps> = ({
   data,
   expandedItems,
   setExpandedItems,
@@ -64,7 +85,10 @@ const WrappedTree = ({
     return <div>Нет данных для отображения</div>;
   }
 
-  const handleExpandedItemsChange = (event, itemIds) => {
+  const handleExpandedItemsChange = (
+    event: ChangeEvent<{}>,
+    itemIds: string[]
+  ) => {
     setExpandedItems(itemIds);
   };
 
